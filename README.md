@@ -1,3 +1,5 @@
 # Tiralabra
 Aineopintojen harjoitustyö: Algoritmit ja tekoäly
-[määrittelydokumentti](maarittely.md)
+[määrittelydokumentti](docs/maarittely.md)
+# Viikkoraportit
+[Viikko 1](docs/viikko1.md)
