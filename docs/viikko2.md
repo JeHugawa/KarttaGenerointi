@@ -1,0 +1,5 @@
+# viikko 2
+
+## käytetty aika: 4 Tuntia
+Tällä viikolla aloin toteuttamaan perlin kohinaa. Sain sen etenemään kohtuu pitkälle ja siitä puuttuu enään pisteiden arvojen välillä interpolaatio ja kaikkien funktioden ajaminen yhdessä. Minulle jäi aluksi epäselväksi esimerkiksi miten satunnaisvektorit kannattaisi määritellä ja aloin aluksi tekemään algoritmista liian monimutkikasta versiota ohjelman tarpeisiin. Siksi Päädyinkin aluksi tekemään yksinkertaisempaa yleistettyä versiota, missä on vakiokokoinen taulukko,ja hyvin pelkistetyt satunnaisvektorit, mikä nopeutti ohjelman toteutusta huomattavasti. Koko perlin kohina olisikin varmaan jo toteutuettu tällä viikolla jos olisin alkanut suoraan tekemään näin.
+Minulla oli myös vaikeuksia lukea kohinan teoriaa, osittain tiettyjen sanojen kääntäminen edestakaisin. Ensi kerralla varmaan varaan enemmän aikaa pseudokoodi toteutusten lukemiseen.Seuraavaksi koodaan perlin kohinan loppuun ja varmaankin toteutan perustason visuaalisaation. Myös testaus olisi hyvä saada viimeistään tässä kohtaa aloitettua. Myös Flood Fillin toteutus olisi hyvä saada alkuun.
