@@ -64,11 +64,10 @@ def perlin(point,random_gradient_grid):
     weight1 = (point[0] - math.floor(point[0]/8)*8)/10
     weight2 = (point[1] - math.floor(point[1]/8)*8)/10
     result = interpolate(dot_products,weight1,weight2)
-    return result
+    return result # palauttaa arvo -8 ja 8 välillä.
 
 # Interpoloi eri pistetulojen välillä
 def interpolate(dot_products,w1,w2):
     ip0 = (dot_products[1]-dot_products[0]) * w1+ dot_products[0]
     ip1 = (dot_products[3]-dot_products[2]) * w1 + dot_products[2]
     return (ip1-ip0) *w2 + ip0
-
