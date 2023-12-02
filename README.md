@@ -6,3 +6,13 @@ Aineopintojen harjoitustyö: Algoritmit ja tekoäly
 - [Viikko 2](docs/viikko2.md)
 - [Viikko 3](docs/viikko3.md)
 - [Viikko 4](docs/viikko4.md)
+
+# Ohjeet
+
+voit asentaa riippuvuudet ja suorittaa ohjelman
+```
+pip install -r requirements.txt
+python src/main.py
+```
+
+voit ajaa testit ajamalla ```pytest src```
