@@ -1,7 +1,8 @@
 import perlin
 import pygame
 
-height_map = perlin.main()
+seed = 1124321521
+height_map = perlin.main(seed)
 
 pygame.init()
 screen = pygame.display.set_mode((1280,1280))
@@ -28,7 +29,7 @@ while running:
             if value >= 6: pygame.draw.rect(screen,h4,(x,y,20,20))
             elif value >= 4: pygame.draw.rect(screen,h3,(x,y,20,20))
             elif value >= 2: pygame.draw.rect(screen,h2,(x,y,20,20))
-            elif value >= 0: pygame.draw.rect(screen,h1,(x,y,20,20))
-            elif value >= -4: pygame.draw.rect(screen,h0,(x,y,20,20))
+            #elif value >= 0: pygame.draw.rect(screen,h1,(x,y,20,20))
+            elif value >= 0: pygame.draw.rect(screen,h0,(x,y,20,20))
             else: pygame.draw.rect(screen,hsub0,(x,y,20,20))
         pygame.display.update()

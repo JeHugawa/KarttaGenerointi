@@ -4,7 +4,8 @@ import math
 # Aloitetaan määrittelemällä 8x8 ristikko, missä jokaisessa ruudussa on 8 arvoa. 
 # Kun saamme tämän toimimaan, tehdään yleistetty versio algoritmista joka toimii millä tahansa koolla.
 
-def main():
+def main(seed):
+    random.seed(seed)
     grid = []
     for i in range(9):
         a = []
@@ -23,8 +24,8 @@ def main():
 # Luodaan satunnainen vektori
 # Voimme myöhemmin nostaa vektorin pituutta parempien tulosten saamiseksi
 def random_gradient():
-   point_list = [(0,1),(1,1),(1,0),(1,-1),(-1,1),(-1,0),(0,-1),(-1,-1)]
-   return random.choice(point_list)
+    point_list = [(0,1),(1,1),(1,0),(1,-1),(-1,1),(-1,0),(0,-1),(-1,-1)]
+    return random.choice(point_list)
 
 
 #laskee pistetulon etäisyysvektoreiden ja satunnaisvektorien välillä
