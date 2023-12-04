@@ -1,13 +1,30 @@
-import perlin
+import perlin, floodfill
 import pygame
+import random
 
-seed = 1124321521
+
+p_siz = 10
+seed = 0.6311718905382234
+threshold = -2
 height_map = perlin.main(seed)
 
+
+#simple bruteforce to find single point in threshold
+random_coord=(0,0)
+for x in range(len(height_map)):
+    for y in range(len(height_map)):
+        if height_map[y][x] <= threshold:
+            random_coord=(x,y)
+            break
+#random_coord=(20,60)
+
+
+flood_map = floodfill.floodfill(threshold,random_coord,height_map)
+
+
 pygame.init()
-screen = pygame.display.set_mode((1280,1280))
+screen = pygame.display.set_mode((64*p_siz,64*p_siz))
 #Colours for the map, used in height order:
-h4 = pygame.Color(255,255,255)
 h3 = pygame.Color(96,96,96)
 h2 = pygame.Color(0,204,0)
 h1 = pygame.Color(244,164,96)
@@ -15,21 +32,23 @@ h0 = pygame.Color(0,0,255)
 hsub0 = pygame.Color(0,0,128)
 
 
-running = True
-while running:
+def draw_map():
     y = 0
-    x = 0
     for row in height_map:
+        x = 0
         for value in row:
-            if x > 1280:
-                y += 20
-                x = 0
-                break
-            x+=20
-            if value >= 6: pygame.draw.rect(screen,h4,(x,y,20,20))
-            elif value >= 4: pygame.draw.rect(screen,h3,(x,y,20,20))
-            elif value >= 2: pygame.draw.rect(screen,h2,(x,y,20,20))
-            #elif value >= 0: pygame.draw.rect(screen,h1,(x,y,20,20))
-            elif value >= 0: pygame.draw.rect(screen,h0,(x,y,20,20))
-            else: pygame.draw.rect(screen,hsub0,(x,y,20,20))
-        pygame.display.update()
+            if flood_map[int(x/p_siz)][int(y/p_siz)] == 1: pygame.draw.rect(screen,hsub0,(x,y,p_siz,p_siz))
+            elif value >= 4: pygame.draw.rect(screen,h3,(x,y,p_siz,p_siz))
+            elif value >= 0: pygame.draw.rect(screen,h2,(x,y,p_siz,p_siz))
+            elif value > -2.00: pygame.draw.rect(screen,h1,(x,y,p_siz,p_siz))
+            #else: pygame.draw.rect(screen,h0,(x,y,20,20))
+            x+=p_siz
+        y+=p_siz
+    pygame.display.update()
+
+
+draw_map()
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            exit()   
