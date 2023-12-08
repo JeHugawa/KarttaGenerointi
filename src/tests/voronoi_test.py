@@ -31,6 +31,7 @@ class TestVoronoi(unittest.TestCase):
         points = [(4,0),(4,8)]
         expected_diagram = [
         [1,1,1,1,1,2,2,2,2,2],
+        [1,1,1,1,2,2,2,2,2,2],
         [1,1,1,1,1,2,2,2,2,2],
         [1,1,1,1,1,2,2,2,2,2],
         [1,1,1,1,1,2,2,2,2,2],
@@ -39,5 +40,21 @@ class TestVoronoi(unittest.TestCase):
         [1,1,1,1,1,2,2,2,2,2],
         [1,1,1,1,1,2,2,2,2,2],
         [1,1,1,1,1,2,2,2,2,2]]
+        output = voronoi.jump_flood(points, 10)
+        self.assertEqual(output, expected_diagram)
+
+    def test_triangle_voronoi_diagram(self):
+        expected_diagram =[
+        [3, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [3, 3, 1, 1, 1, 1, 1, 1, 2, 2],
+        [3, 3, 3, 1, 1, 1, 1, 1, 2, 2],
+        [3, 3, 3, 3, 1, 1, 2, 2, 2, 2],
+        [3, 3, 3, 3, 3, 1, 2, 2, 2, 2],
+        [3, 3, 3, 3, 3, 2, 2, 2, 2, 2],
+        [3, 3, 3, 3, 3, 2, 2, 2, 2, 2],
+        [3, 3, 3, 3, 3, 2, 2, 2, 2, 2],
+        [3, 3, 3, 3, 3, 2, 2, 2, 2, 2],
+        [3, 3, 3, 3, 3, 2, 2, 2, 2, 2]]
+        points = [(0,5),(4,9),(4,0)]
         output = voronoi.jump_flood(points, 10)
         self.assertEqual(output, expected_diagram)
