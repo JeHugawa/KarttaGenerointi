@@ -1,69 +1,50 @@
-import perlin, floodfill, river, voronoi
-import pygame
+import sys
 import random
+from PySide6 import QtCore, QtWidgets, QtGui
+import map_generator
 
 
-p_siz = 5
-map_size = 8*12
-seed = 0.6311718905382234
-threshold = -2
-voronoi_scale = 4
+class SettingUI(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
 
-height_map = perlin.main(seed,map_size)
+        self.button = QtWidgets.QPushButton("Generate")
 
-#simple bruteforce to find single point in threshold
-random_coord=(0,0)
-for x in range(len(height_map)):
-    for y in range(len(height_map)):
-        if height_map[y][x] <= threshold:
-            random_coord=(x,y)
-            break
+        self.map_scale = QtWidgets.QSpinBox(self) 
+        self.map_scale.setRange(8,16)
+        self.threshold = QtWidgets.QSpinBox(self)
+        self.threshold.setRange(-8,8)
+        self.threshold.setValue(-2)
+        self.seed = QtWidgets.QSpinBox(self)
+        self.seed.setRange(-50000,50000)
+        self.seed.setValue(random.randint(0,5000))
+        self.layout = QtWidgets.QVBoxLayout(self)
+        
+        self.text = QtWidgets.QLabel("Map scale", alignment=QtCore.Qt.AlignBottom)
+        self.layout.addWidget(self.text)
+        self.layout.addWidget(self.map_scale)
+        self.text = QtWidgets.QLabel("Ocean Threshold",alignment=QtCore.Qt.AlignBottom)
+        self.layout.addWidget(self.text)
+        self.layout.addWidget(self.threshold)
+        self.text = QtWidgets.QLabel("Random Seed",alignment=QtCore.Qt.AlignBottom)
+        self.layout.addWidget(self.text)
+        self.layout.addWidget(self.seed)
 
-flood_map = floodfill.floodfill(threshold,random_coord,height_map,map_size)
-
-river_point = river.randomize_river_point(map_size-1)
-river_path = river.generate_river(river_point,random_coord,map_size)
-
-voronoi_points = voronoi.randomize_points(voronoi_scale*3, map_size)
-biome_map = voronoi.jump_flood(voronoi_points,map_size)
-
-pygame.init()
-screen = pygame.display.set_mode((map_size*p_siz,map_size*p_siz))
-#Colours for the map, used in height order:
-mountain = pygame.Color(96, 96, 96)
-grass = pygame.Color(0, 204, 0)
-sand = pygame.Color(194, 178, 128)
-snow = pygame.Color(240, 240, 240)
-water = pygame.Color(0, 0, 255)
-deep_water = pygame.Color(0, 0, 128)
+        self.layout.addWidget(self.button)
+        self.button.clicked.connect(self.drawMap)
 
 
-def draw_map():
-    y = 0
-    for row in height_map:
-        x = 0
-        for value in row:
-            if flood_map[int(x/p_siz)][int(y/p_siz)] == 1: 
-                pygame.draw.rect(screen, deep_water, (x,y,p_siz,p_siz))
-            elif river_path[int(x/p_siz)][int(y/p_siz)] == 1:
-                pygame.draw.rect(screen, water, (x,y,p_siz,p_siz))
-            elif value >= 4:
-                pygame.draw.rect(screen, mountain, (x,y,p_siz,p_siz))
-            else:
-                if biome_map[int(x/p_siz)][int(y/p_siz)] % 3 == 0:
-                    pygame.draw.rect(screen, grass, (x,y,p_siz,p_siz))
-                if biome_map[int(x/p_siz)][int(y/p_siz)] % 3 == 1:
-                    pygame.draw.rect(screen, sand, (x,y,p_siz,p_siz))
-                if biome_map[int(x/p_siz)][int(y/p_siz)] % 3 == 2:
-                    pygame.draw.rect(screen, snow, (x,y,p_siz,p_siz))
+    def drawMap(self):
+        seedval = self.seed.value() 
+        thresholdval = self.threshold.value()
+        map_scaleval = self.map_scale.value()
+        map_generator.main(seedval,map_scaleval,thresholdval)
 
-            x+=p_siz
-        y+=p_siz
-    pygame.display.update()
+if __name__ == "__main__":
+    app = QtWidgets.QApplication([])
 
+    widget = SettingUI()
+    widget.resize(800, 600)
+    widget.show()
 
-draw_map()
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            exit()   
+    sys.exit(app.exec())
