@@ -1,6 +1,6 @@
-def floodfill(threshold: int, point: int, height_map: list):
+def floodfill(threshold: int, point: int, height_map: list, map_size: int):
     #0 täyttämätön ruutu, 1 täytetty
-    floodmap = [64*[0] for x in range(64)]
+    floodmap = [map_size*[0] for x in range(map_size)]
     que = [point]
     while que:
         x,y = que.pop()

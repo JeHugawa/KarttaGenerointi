@@ -4,18 +4,18 @@ import math
 # Aloitetaan määrittelemällä 8x8 ristikko, missä jokaisessa ruudussa on 8 arvoa. 
 # Kun saamme tämän toimimaan, tehdään yleistetty versio algoritmista joka toimii millä tahansa koolla.
 
-def main(seed):
+def main(seed,size):
     random.seed(seed)
     grid = []
-    for i in range(9):
+    for i in range(int(size/8)+1):
         a = []
-        for j in range(9):
+        for j in range(int(size/8)+1):
             a.append(random_gradient())
         grid.append(a)
     map_grid = []
-    for x_coord in range(64):
+    for x_coord in range(size):
         row = []
-        for y_coord in range(64):
+        for y_coord in range(size):
             row.append(perlin((x_coord, y_coord),grid))
         map_grid.append(row)
     return map_grid
