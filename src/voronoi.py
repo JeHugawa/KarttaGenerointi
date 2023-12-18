@@ -1,9 +1,8 @@
 import copy
+from random import randint
 from math import sqrt
 
-def jump_flood(points: list, size: int):
-    
-
+def jump_flood(points: list, size: int): 
     diagram = []
     for i in range(size):
         diagram.append([0]*size)
@@ -44,3 +43,8 @@ def jump_flood(points: list, size: int):
         step = step //2
     return diagram
 
+def randomize_points(amount,map_size):
+    points = []
+    for i in range(amount):
+        points.append((randint(0,map_size),randint(0,map_size)))
+    return points
